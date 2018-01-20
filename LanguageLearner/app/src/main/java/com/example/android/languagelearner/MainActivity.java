@@ -270,7 +270,10 @@ public class MainActivity extends AppCompatActivity {
             }
 
             protected void onPostExecute(String result) {
-
+                // translate the result here. 
+                LanguageTranslator service = new LanguageTranslator();
+                service.setUsernameAndPassword("{username}","{password}");
+                
                 arrayList.add(result);
                 TextView textView = new TextView(getApplicationContext());
                 textView.setText(result);
