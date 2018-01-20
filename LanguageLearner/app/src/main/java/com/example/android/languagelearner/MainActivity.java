@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -18,9 +19,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
@@ -38,6 +41,9 @@ import com.google.api.services.vision.v1.model.BatchAnnotateImagesResponse;
 import com.google.api.services.vision.v1.model.EntityAnnotation;
 import com.google.api.services.vision.v1.model.Feature;
 import com.google.api.services.vision.v1.model.Image;
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -52,13 +58,14 @@ public class MainActivity extends AppCompatActivity {
     private static final int CAMERA_REQUEST_CODE = 102;
 
     private static final String CLOUD_VISION_API_KEY = "AIzaSyCE0d7_DpfGkB82FOUnBnt_Vc1N35vJiHc";
+    private static final String TRANSLATE_API_KEY = "AIzaSyCsb-Ip4pMg8touOycpEZvj4tgWTXAabZU";
 
     private Feature feature;
     private Bitmap bitmap;
 
-    public static int score;
+    public static int score = 0;
 
-    CardView cardView;
+    RelativeLayout relativeLayout;
 
     static ImageView img;
     static ImageView img1;
@@ -67,6 +74,11 @@ public class MainActivity extends AppCompatActivity {
     static ImageView img4;
     static ImageView img5;
 
+    CardView cardScore;
+    TextView textScore;
+
+    //TextView textTranslate;
+
     ProgressBar imageUploadProgress;
     LinearLayout linearLayout;
 
@@ -74,17 +86,34 @@ public class MainActivity extends AppCompatActivity {
 
     public static ArrayList<String> arrayList;
 
+    @SuppressLint("StaticFieldLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         arrayList = new ArrayList<>();
 
         feature = new Feature();
         feature.setType("LABEL_DETECTION");
         feature.setMaxResults(1);
+
+        final Handler textViewHandler = new Handler();
+
+        cardScore = findViewById(R.id.card_score);
+        textScore = findViewById(R.id.text_score);
+
+        if (score > 0){
+            cardScore.setVisibility(View.VISIBLE);
+        } else {
+            cardScore.setVisibility(View.GONE);
+        }
+
+        if (score > 25) {
+            textScore.setText("You scored " + Integer.toString(score) + " points. Good job!");
+        } else {
+            textScore.setText("You scored " + Integer.toString(score) + " points. Work harder!");
+        }
 
 
         linearLayout = (LinearLayout) findViewById(R.id.layout);
@@ -106,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.navigation_dashboard:
                         break;
                     case R.id.navigation_quiz:
+                        score = 0;
                         Intent intent = new Intent(MainActivity.this, QuizActivity.class);
                         startActivity(intent);
                         break;
@@ -116,6 +146,31 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //textTranslate = findViewById(R.id.text_translate);
+
+/*
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                TranslateOptions options = TranslateOptions.newBuilder()
+                        .setApiKey(TRANSLATE_API_KEY)
+                        .build();
+                Translate translate = options.getService();
+                final Translation translation =
+                        translate.translate("Hello World",
+                                Translate.TranslateOption.targetLanguage("es"));
+                textViewHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (textTranslate != null) {
+                            textTranslate.setText(translation.getTranslatedText());
+                        }
+                    }
+                });
+                return null;
+            }
+        }.execute();
+*/
     }
 
     private int checkPermission(String permission) {
@@ -137,76 +192,83 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
             bitmap = (Bitmap) data.getExtras().get("data");
 
-            cardView = new CardView(this);
+            relativeLayout = new RelativeLayout(this);
             LayoutParams params = new LayoutParams(
-                    LayoutParams.WRAP_CONTENT,
-                    LayoutParams.WRAP_CONTENT
+                    LayoutParams.MATCH_PARENT,
+                    LayoutParams.MATCH_PARENT
             );
 
-            params.setMargins(0, 10, 0, 0);
-            cardView.setContentPadding(10, 10, 10, 10);
-
-            View view = new View(this);
-            LayoutParams paramView = new LayoutParams(20,20);
-
-            view.setLayoutParams(paramView);
-            cardView.setLayoutParams(params);
+            relativeLayout.setLayoutParams(params);
 
             count = count + 1;
 
             if (count == 1){
                 img1 = new ImageView(this);
-                img1.setLayoutParams(new android.view.ViewGroup.LayoutParams(300,300));
-                img1.setMaxHeight(500);
-                img1.setMaxWidth(500);
+                //img1.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+                img1.setLayoutParams(new android.view.ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+                //img1.setMaxHeight(500);
+                //img1.setMaxWidth(500);
                 img1.setId(count);
+                img1.getLayoutParams().height= ViewGroup.LayoutParams.MATCH_PARENT;
+                img1.getLayoutParams().width= ViewGroup.LayoutParams.MATCH_PARENT;
 
-                cardView.addView(img1);
-                linearLayout.addView(view);
+                relativeLayout.addView(img1);
                 img1.setImageBitmap(bitmap);
             }
             else if (count == 2){
                 img2 = new ImageView(this);
-                img2.setLayoutParams(new android.view.ViewGroup.LayoutParams(300,300));
-                img2.setMaxHeight(500);
-                img2.setMaxWidth(500);
+                img2.setLayoutParams(new android.view.ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+                //img2.setLayoutParams(new android.view.ViewGroup.LayoutParams(300,300));
+                //img2.setMaxHeight(500);
+                //img2.setMaxWidth(500);
+                //img2.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
                 img2.setId(count);
+                img2.getLayoutParams().height= ViewGroup.LayoutParams.MATCH_PARENT;
+                img2.getLayoutParams().width= ViewGroup.LayoutParams.MATCH_PARENT;
 
-                cardView.addView(img2);
-                linearLayout.addView(view);
+                relativeLayout.addView(img2);
                 img2.setImageBitmap(bitmap);
             }
             else if (count == 3){
                 img3 = new ImageView(this);
-                img3.setLayoutParams(new android.view.ViewGroup.LayoutParams(300,300));
-                img3.setMaxHeight(500);
-                img3.setMaxWidth(500);
+                //img3.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+                img3.setLayoutParams(new android.view.ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+                //img3.setLayoutParams(new android.view.ViewGroup.LayoutParams(300,300));
+                //img3.setMaxHeight(500);
+                //img3.setMaxWidth(500);
                 img3.setId(count);
+                //img3.getLayoutParams().height= ViewGroup.LayoutParams.MATCH_PARENT;
+                img3.getLayoutParams().height= ViewGroup.LayoutParams.MATCH_PARENT;
+                img3.getLayoutParams().width= ViewGroup.LayoutParams.MATCH_PARENT;
 
-                cardView.addView(img3);
-                linearLayout.addView(view);
+                relativeLayout.addView(img3);
                 img3.setImageBitmap(bitmap);
             }
             else if (count == 4){
                 img4 = new ImageView(this);
-                img4.setLayoutParams(new android.view.ViewGroup.LayoutParams(300,300));
-                img4.setMaxHeight(500);
-                img4.setMaxWidth(500);
+                img4.setLayoutParams(new android.view.ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+                //img4.setLayoutParams(new android.view.ViewGroup.LayoutParams(300,300));
+                //img4.setMaxHeight(500);
+                //img4.setMaxWidth(500);
                 img4.setId(count);
+                //img4.getLayoutParams().height= ViewGroup.LayoutParams.MATCH_PARENT;
+                img4.getLayoutParams().height= ViewGroup.LayoutParams.MATCH_PARENT;
+                img4.getLayoutParams().width= ViewGroup.LayoutParams.MATCH_PARENT;
 
-                cardView.addView(img4);
-                linearLayout.addView(view);
+                relativeLayout.addView(img4);
                 img4.setImageBitmap(bitmap);
             }
             else if (count == 5){
                 img5 = new ImageView(this);
-                img5.setLayoutParams(new android.view.ViewGroup.LayoutParams(300,300));
-                img5.setMaxHeight(500);
-                img5.setMaxWidth(500);
+                img5.setLayoutParams(new android.view.ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+                //img5.setLayoutParams(new android.view.ViewGroup.LayoutParams(300,300));
+                //img5.setMaxHeight(500);
+                //img5.setMaxWidth(500);
                 img5.setId(count);
+                img5.getLayoutParams().height= ViewGroup.LayoutParams.MATCH_PARENT;
+                img5.getLayoutParams().width= ViewGroup.LayoutParams.MATCH_PARENT;
 
-                cardView.addView(img5);
-                linearLayout.addView(view);
+                relativeLayout.addView(img5);
                 img5.setImageBitmap(bitmap);
             }
 
@@ -270,8 +332,9 @@ public class MainActivity extends AppCompatActivity {
             }
 
             protected void onPostExecute(String result) {
-
-                arrayList.add(result);
+                //Translate
+                translateText(result);
+                /*arrayList.add(result);
                 TextView textView = new TextView(getApplicationContext());
                 textView.setText(result);
                 textView.setTextColor(Color.BLACK);
@@ -283,7 +346,7 @@ public class MainActivity extends AppCompatActivity {
 
                 cardView.addView(textView);
                 linearLayout.addView(cardView);
-                imageUploadProgress.setVisibility(View.INVISIBLE);
+                imageUploadProgress.setVisibility(View.INVISIBLE);*/
             }
         }.execute();
     }
@@ -337,5 +400,49 @@ public class MainActivity extends AppCompatActivity {
         Random r = new Random();
         return r.nextInt((max - min) + 1) + min;
     }
+
+
+    @SuppressLint("StaticFieldLeak")
+    public void translateText(final String text){
+        final Handler textViewHandler = new Handler();
+
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                TranslateOptions options = TranslateOptions.newBuilder()
+                        .setApiKey(TRANSLATE_API_KEY)
+                        .build();
+                Translate translate = options.getService();
+                final Translation translation =
+                        translate.translate(text,
+                                Translate.TranslateOption.targetLanguage("es"));
+                textViewHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                            //textTranslate.setText(translation.getTranslatedText());
+                            arrayList.add(translation.getTranslatedText());
+                            TextView textView = new TextView(getApplicationContext());
+                            textView.setText(translation.getTranslatedText());
+                            textView.setTextColor(Color.BLACK);
+
+                            LayoutParams paramsText = new LayoutParams(LayoutParams.WRAP_CONTENT,
+                                    LayoutParams.WRAP_CONTENT);
+
+                            paramsText.setMargins(100, 100, 0, 0);
+
+                            relativeLayout.addView(textView);
+                            linearLayout.addView(relativeLayout);
+                            imageUploadProgress.setVisibility(View.INVISIBLE);
+
+                    }
+                });
+                return null;
+            }
+        }.execute();
+
+
+    }
+
+
 
 }

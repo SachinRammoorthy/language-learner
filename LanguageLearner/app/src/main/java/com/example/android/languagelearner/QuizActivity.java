@@ -2,7 +2,6 @@ package com.example.android.languagelearner;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,14 +27,14 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        final Handler handler = new Handler();
+        /*final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 Intent intent = new Intent(QuizActivity.this, Quiz2Activity.class);
                 startActivity(intent);
             }
-        }, 10000);
+        }, 10000);*/
 
 
         img = MainActivity.img1;
@@ -56,6 +55,8 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 isCorrect();
+                Intent intent = new Intent(QuizActivity.this, Quiz2Activity.class);
+                startActivity(intent);
                 /*String answerString = answer.getText().toString().toLowerCase();
                 String correctAnswer = MainActivity.arrayList.get(0).trim();
                 if (answerString.equals(correctAnswer)){

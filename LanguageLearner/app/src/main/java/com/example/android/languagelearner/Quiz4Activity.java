@@ -2,7 +2,6 @@ package com.example.android.languagelearner;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,14 +30,14 @@ public class Quiz4Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz4);
 
-        final Handler handler = new Handler();
+        /*final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 Intent intent = new Intent(Quiz4Activity.this, Quiz5Activity.class);
                 startActivity(intent);
             }
-        }, 10000);
+        }, 10000);*/
 
         /*count = getRandomNumberInRange(1, 4);
 
@@ -91,10 +90,13 @@ public class Quiz4Activity extends AppCompatActivity {
                 String correctAnswer = MainActivity.arrayList.get(3).toLowerCase().trim();
                 if (answerString.equals(correctAnswer)){
                     Toast.makeText(getApplicationContext(), "Great Job!", Toast.LENGTH_SHORT).show();
+                    MainActivity.score = MainActivity.score + 10;
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Oops! Try harder!", Toast.LENGTH_SHORT).show();
                 }
+                Intent intent = new Intent(Quiz4Activity.this, Quiz5Activity.class);
+                startActivity(intent);
             }
         });
 
@@ -121,5 +123,10 @@ public class Quiz4Activity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Oops! Try harder!", Toast.LENGTH_SHORT).show();
             return false;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Simply Do noting!
     }
 }
