@@ -16,8 +16,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -46,12 +48,12 @@ public class MainActivity extends AppCompatActivity {
     private static final int RECORD_REQUEST_CODE = 101;
     private static final int CAMERA_REQUEST_CODE = 102;
 
-    private static final String CLOUD_VISION_API_KEY = "AIzaSyD_bsIgy_nyAUJFHw1UsMnWIt1WygAwn1Q";
+    private static final String CLOUD_VISION_API_KEY = "AIzaSyCE0d7_DpfGkB82FOUnBnt_Vc1N35vJiHc";
 
     private Feature feature;
     private Bitmap bitmap;
 
-    //ProgressBar imageUploadProgress = (ProgressBar) findViewById(R.id.imageProgress);
+    ProgressBar imageUploadProgress;
     LinearLayout linearLayout;
 
     @Override
@@ -59,7 +61,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        feature = new Feature();
+        feature.setType("LABEL_DETECTION");
+        feature.setMaxResults(1);
+
+
         linearLayout = (LinearLayout) findViewById(R.id.layout);
+        imageUploadProgress = (ProgressBar) findViewById(R.id.imageProgress);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         Menu menu = navigation.getMenu();
@@ -130,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("StaticFieldLeak")
     private void callCloudVision(final Bitmap bitmap, final Feature feature) {
-        //imageUploadProgress.setVisibility(View.VISIBLE);
+        imageUploadProgress.setVisibility(View.VISIBLE);
         final List<Feature> featureList = new ArrayList<>();
         featureList.add(feature);
 
@@ -177,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                 textView.setText(result);
                 textView.setTextColor(Color.BLACK);
                 linearLayout.addView(textView);
-                //imageUploadProgress.setVisibility(View.INVISIBLE);
+                imageUploadProgress.setVisibility(View.INVISIBLE);
             }
         }.execute();
     }
