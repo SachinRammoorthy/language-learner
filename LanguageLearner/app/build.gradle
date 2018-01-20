@@ -18,12 +18,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-<<<<<<< HEAD
         vectorDrawables.useSupportLibrary= true
         manifestPlaceholders = [onesignal_app_id: "efd1c2a4-2055-49c8-903b-fb2b0a1c155e", onesignal_google_project_number: "REMOTE"]
-=======
         vectorDrawables.useSupportLibrary = true
->>>>>>> upstream/master
     }
     buildTypes {
         release {
@@ -51,12 +48,9 @@ dependencies {
     implementation 'com.google.apis:google-api-services-vision:v1-rev2-1.21.0' exclude module: 'httpclient'
 
     testImplementation 'junit:junit:4.12'
-<<<<<<< HEAD
-    compile 'com.onesignal:OneSignal:[3.7.1, 3.99.99]'
-=======
+    implementation 'com.onesignal:OneSignal:[3.7.1, 3.99.99]'
+    implementation 'com.ibm.watson.developer_cloud:java-sdk:4.0.0'
     annotationProcessor 'com.google.auto.value:auto-value:1.2'
-
->>>>>>> upstream/master
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
