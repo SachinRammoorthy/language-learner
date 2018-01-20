@@ -13,6 +13,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -53,13 +55,20 @@ public class MainActivity extends AppCompatActivity {
     private Feature feature;
     private Bitmap bitmap;
 
+    CardView cardView;
+
+
     ProgressBar imageUploadProgress;
     LinearLayout linearLayout;
+
+    public static ArrayList<String> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        arrayList = new ArrayList<String>();
 
         feature = new Feature();
         feature.setType("LABEL_DETECTION");
@@ -115,11 +124,30 @@ public class MainActivity extends AppCompatActivity {
                                     Intent data) {
         if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
             bitmap = (Bitmap) data.getExtras().get("data");
+
+            cardView = new CardView(this);
+            LayoutParams params = new LayoutParams(
+                    LayoutParams.WRAP_CONTENT,
+                    LayoutParams.WRAP_CONTENT
+            );
+
+            params.setMargins(0, 10, 0, 0);
+            cardView.setContentPadding(10, 10, 10, 10);
+
+            View view = new View(this);
+            LayoutParams paramView = new LayoutParams(20,20);
+
+            view.setLayoutParams(paramView);
+            cardView.setLayoutParams(params);
+
+
             ImageView img = new ImageView(this);
             img.setLayoutParams(new android.view.ViewGroup.LayoutParams(300,300));
             img.setMaxHeight(500);
             img.setMaxWidth(500);
-            linearLayout.addView(img);
+
+            cardView.addView(img);
+            linearLayout.addView(view);
             img.setImageBitmap(bitmap);
             callCloudVision(bitmap, feature);
         }
@@ -181,10 +209,20 @@ public class MainActivity extends AppCompatActivity {
             }
 
             protected void onPostExecute(String result) {
+
+                arrayList.add(result);
+
                 TextView textView = new TextView(getApplicationContext());
                 textView.setText(result);
                 textView.setTextColor(Color.BLACK);
-                linearLayout.addView(textView);
+
+                LayoutParams paramsText = new LayoutParams(LayoutParams.WRAP_CONTENT,
+                        LayoutParams.WRAP_CONTENT);
+
+                paramsText.setMargins(100, 100, 0, 0);
+
+                cardView.addView(textView);
+                linearLayout.addView(cardView);
                 imageUploadProgress.setVisibility(View.INVISIBLE);
             }
         }.execute();
@@ -221,8 +259,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (entityAnnotation != null) {
             for (EntityAnnotation entity : entityAnnotation) {
-                //message = message + "    " + entity.getDescription() + " " + entity.getScore();
-                //message += "\n";
                 message = message + " " + entity.getDescription();
             }
         } else {
