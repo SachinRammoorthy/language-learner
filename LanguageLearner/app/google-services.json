@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "164202141697",
+    "firebase_url": "https://languagelearner-80b50.firebaseio.com",
+    "project_id": "languagelearner-80b50",
+    "storage_bucket": "languagelearner-80b50.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:164202141697:android:1fc85ff9add78a7a",
+        "android_client_info": {
+          "package_name": "com.example.android.languagelearner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "164202141697-2buoroibduust9mlsggdd944u4sdthi8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.android.languagelearner",
+            "certificate_hash": "3178f62ac6505ac965ddd9747a0982dd58054530"
+          }
+        },
+        {
+          "client_id": "164202141697-b6dalbek6aofr2e69sgheh5iqa2682ot.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtVye3FmcSbY2jKW5LDIOALZll8rPu8PA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "164202141697-b6dalbek6aofr2e69sgheh5iqa2682ot.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

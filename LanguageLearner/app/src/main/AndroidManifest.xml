@@ -27,7 +27,8 @@
         <activity android:name=".Quiz2Activity" />
         <activity android:name=".Quiz3Activity" />
         <activity android:name=".Quiz4Activity" />
-        <activity android:name=".Quiz5Activity"></activity>
+        <activity android:name=".Quiz5Activity" />
+        <activity android:name=".QuizEndActivity"></activity>
     </application>
 
 </manifest>

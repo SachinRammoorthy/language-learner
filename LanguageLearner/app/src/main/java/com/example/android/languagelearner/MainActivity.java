@@ -2,13 +2,16 @@ package com.example.android.languagelearner;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -20,8 +23,10 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
@@ -47,9 +52,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener{
 
     private static final String TAG = "MainActivity";
     private static final int RECORD_REQUEST_CODE = 101;
@@ -63,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
 
     public static int score = 0;
 
+    TextView info;
+
+    private TextToSpeech tts;
     //RelativeLayout relativeLayout;
 
     static ImageView img;
@@ -75,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
     CardView cardScore;
     TextView textScore;
 
+    TextView textView;
     //TextView textTranslate;
 
     //ProgressBar imageUploadProgress;
@@ -91,7 +101,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        tts = new TextToSpeech(this, this);
+
         arrayList = new ArrayList<>();
+
+        info = findViewById(R.id.text_info);
 
         feature = new Feature();
         feature.setType("LABEL_DETECTION");
@@ -114,6 +128,8 @@ public class MainActivity extends AppCompatActivity {
             textScore.setText("You scored " + Integer.toString(score) + " points. Work harder!");
         }
 
+        //speakOut();
+
 
         linearLayout = (LinearLayout) findViewById(R.id.layout);
         //imageUploadProgress = (ProgressBar) findViewById(R.id.imageProgress);
@@ -129,12 +145,14 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.camera:
+                        info.setVisibility(View.GONE);
                         takePicture();
                         break;
                     case R.id.navigation_dashboard:
                         break;
                     case R.id.navigation_quiz:
                         score = 0;
+                        int randomNum = getRandomNumberInRange(1,5);
                         Intent intent = new Intent(MainActivity.this, QuizActivity.class);
                         startActivity(intent);
                         break;
@@ -357,6 +375,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Base64 encode the JPEG
         base64EncodedImage.encodeContent(imageBytes);
+        SharedPreferences shre = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor edit=shre.edit();
+        edit.putString("image_data", base64EncodedImage.toString());
+        edit.commit();
+
         return base64EncodedImage;
     }
 
@@ -399,6 +422,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    Translation translation;
+
     @SuppressLint("StaticFieldLeak")
     public void translateText(final String text){
         final Handler textViewHandler = new Handler();
@@ -410,7 +435,7 @@ public class MainActivity extends AppCompatActivity {
                         .setApiKey(TRANSLATE_API_KEY)
                         .build();
                 Translate translate = options.getService();
-                final Translation translation =
+                translation =
                         translate.translate(text,
                                 Translate.TranslateOption.targetLanguage("es"));
                 textViewHandler.post(new Runnable() {
@@ -418,16 +443,43 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                             //textTranslate.setText(translation.getTranslatedText());
                             arrayList.add(translation.getTranslatedText());
-                            TextView textView = new TextView(getApplicationContext());
+                            textView = new TextView(getApplicationContext());
                             textView.setText(translation.getTranslatedText());
                             textView.setTextColor(Color.BLACK);
                             textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
                             textView.setTextSize(30);
+                            textView.setWidth(50);
 
                             View emptyView = new View(getApplicationContext());
                             emptyView.setMinimumHeight(10);
 
+                            Button soundButton = new Button(getApplicationContext());
+                            //soundButton.setBackgroundResource(R.drawable.ic_home_black_24dp);
+                            soundButton.setText("");
+                            soundButton.setWidth(75);
+                            soundButton.setHeight(LayoutParams.WRAP_CONTENT);
+                            soundButton.setBackgroundResource(R.drawable.ic_volume_up_black_24dp);
+
+                        RelativeLayout.LayoutParams params = new LayoutParams(
+                                75,
+                                LayoutParams.WRAP_CONTENT
+                        );
+
+                        //soundParams.setMargins(100, 50, 50, 50);
+                        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                        soundButton.setGravity(Gravity.RIGHT | Gravity.END);
+                        soundButton.setLayoutParams(params);
+
+
+                        soundButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    speakOut(translation.getTranslatedText());
+                                }
+                            });
+
                             cardView.addView(textView);
+                            cardView.addView(soundButton);
                             linearLayout.addView(cardView);
                             linearLayout.addView(emptyView);
                             //imageUploadProgress.setVisibility(View.INVISIBLE);
@@ -439,6 +491,40 @@ public class MainActivity extends AppCompatActivity {
         }.execute();
 
 
+    }
+
+    @Override
+    public void onInit(int status) {
+
+        if (status == TextToSpeech.SUCCESS) {
+
+            int result = tts.setLanguage(Locale.US);
+
+            if (result == TextToSpeech.LANG_MISSING_DATA
+                    || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e("TTS", "This Language is not supported");
+            } else {
+                //speakOut();
+            }
+
+        } else {
+            Log.e("TTS", "Initilization Failed!");
+        }
+
+    }
+
+    private void speakOut(String text) {
+
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+    }
+    @Override
+    public void onDestroy() {
+        // Don't forget to shutdown tts!
+        if (tts != null) {
+            tts.stop();
+            tts.shutdown();
+        }
+        super.onDestroy();
     }
 
 

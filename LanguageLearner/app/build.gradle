@@ -45,13 +45,16 @@ dependencies {
     implementation 'com.google.apis:google-api-services-translate:v2-rev51-1.23.0'
 
     implementation 'com.google.apis:google-api-services-translate:v2-rev51-1.23.0'
-    implementation ('com.google.cloud:google-cloud-translate:0.5.0') {
+    implementation('com.google.cloud:google-cloud-translate:0.5.0') {
         exclude group: 'io.grpc', module: 'grpc-all'
         exclude group: 'com.google.protobuf', module: 'protobuf-java'
         exclude group: 'com.google.api-client', module: 'google-api-client-appengine'
     }
 
     implementation 'com.android.support:support-v4:26.1.0'
+    implementation 'com.google.firebase:firebase-storage:11.0.4'
+    implementation 'com.google.firebase:firebase-auth:11.0.4'
+    implementation 'com.google.firebase:firebase-database:11.0.4'
     implementation 'com.google.api-client:google-api-client-android:1.20.0' exclude module: 'httpclient'
     implementation 'com.google.http-client:google-http-client-gson:1.20.0' exclude module: 'httpclient'
 
@@ -63,3 +66,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
+
+
+
+
+apply plugin: 'com.google.gms.google-services'
