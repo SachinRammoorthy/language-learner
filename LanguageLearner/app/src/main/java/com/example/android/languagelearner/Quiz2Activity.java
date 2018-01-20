@@ -15,7 +15,8 @@ import android.widget.Toast;
 
 import java.util.Random;
 
-public class QuizActivity extends AppCompatActivity {
+public class Quiz2Activity extends AppCompatActivity {
+
 
     EditText answer;
     TextView question;
@@ -23,22 +24,46 @@ public class QuizActivity extends AppCompatActivity {
     LinearLayout layout;
     ImageView img;
 
+    int count;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quiz);
+        setContentView(R.layout.activity_quiz2);
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(QuizActivity.this, Quiz2Activity.class);
+                Intent intent = new Intent(Quiz2Activity.this, QuizActivity.class);
                 startActivity(intent);
             }
         }, 10000);
 
+        count = getRandomNumberInRange(1, 4);
 
-        img = MainActivity.img1;
+        if (count == 1) {
+            img = MainActivity.img1;
+        }
+
+        else if (count == 2){
+            img = MainActivity.img2;
+        }
+
+        else if (count == 3){
+            img = MainActivity.img3;
+        }
+
+        else if (count == 4){
+            img = MainActivity.img4;
+        }
+
+        else {
+            img = MainActivity.img5;
+        }
+
+
+
 
         if (img.getParent()!=null) {
             ((ViewGroup) img.getParent()).removeView(img);
@@ -55,20 +80,19 @@ public class QuizActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isCorrect();
-                /*String answerString = answer.getText().toString().toLowerCase();
-                String correctAnswer = MainActivity.arrayList.get(0).trim();
+                //isCorrect();
+                String answerString = answer.getText().toString().toLowerCase().trim();
+                String correctAnswer = MainActivity.arrayList.get(count).trim();
                 if (answerString.equals(correctAnswer)){
                     Toast.makeText(getApplicationContext(), "Great Job!", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Oops! Try harder!", Toast.LENGTH_SHORT).show();
-                } */
+                }
             }
         });
 
     }
-
     private static int getRandomNumberInRange(int min, int max) {
 
         if (min >= max) {
@@ -81,7 +105,7 @@ public class QuizActivity extends AppCompatActivity {
 
     public boolean isCorrect(){
         String answerString = answer.getText().toString().toLowerCase().trim();
-        String correctAnswer = MainActivity.arrayList.get(0).trim();
+        String correctAnswer = MainActivity.arrayList.get(count).trim();
         if (answerString.equals(correctAnswer)){
             Toast.makeText(getApplicationContext(), "Great Job!", Toast.LENGTH_SHORT).show();
             MainActivity.score = MainActivity.score + 10;
@@ -92,6 +116,4 @@ public class QuizActivity extends AppCompatActivity {
             return false;
         }
     }
-
-
 }

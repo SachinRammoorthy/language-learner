@@ -43,6 +43,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Feature feature;
     private Bitmap bitmap;
+
+    public static int score;
 
     CardView cardView;
 
@@ -323,6 +326,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return message;
+    }
+
+    private static int getRandomNumberInRange(int min, int max) {
+
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
     }
 
 }
