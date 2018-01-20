@@ -40,37 +40,43 @@ public class Quiz2Activity extends AppCompatActivity {
             }
         }, 10000);
 
-        count = getRandomNumberInRange(1, 4);
+        /*count = getRandomNumberInRange(1, 4);
 
         if (count == 1) {
             img = MainActivity.img1;
+            countCopy = 1;
         }
 
         else if (count == 2){
             img = MainActivity.img2;
+            countCopy = 2;
         }
 
         else if (count == 3){
             img = MainActivity.img3;
+            countCopy = 3;
         }
 
         else if (count == 4){
             img = MainActivity.img4;
+            countCopy = 4;
         }
 
         else {
             img = MainActivity.img5;
-        }
+            countCopy = 5;
+        }*/
 
 
-
+        img = MainActivity.img2;
 
         if (img.getParent()!=null) {
             ((ViewGroup) img.getParent()).removeView(img);
-        }
+            }
 
         layout = (LinearLayout) findViewById(R.id.img_layout);
         layout.addView(img);
+
 
         answer = (EditText) findViewById(R.id.answer_box);
         question = (TextView) findViewById(R.id.quiz_question);
@@ -82,7 +88,7 @@ public class Quiz2Activity extends AppCompatActivity {
             public void onClick(View v) {
                 //isCorrect();
                 String answerString = answer.getText().toString().toLowerCase().trim();
-                String correctAnswer = MainActivity.arrayList.get(count).trim();
+                String correctAnswer = MainActivity.arrayList.get(1).toLowerCase().trim();
                 if (answerString.equals(correctAnswer)){
                     Toast.makeText(getApplicationContext(), "Great Job!", Toast.LENGTH_SHORT).show();
                 }
