@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">LanguageLearner</string>
-    <string name="title_home">Home</string>
+    <string name="title_camera">Camera</string>
     <string name="title_dashboard">Dashboard</string>
+    <string name="title_quiz">Quiz</string>
+    <string name="title_activity_quiz">QuizActivity</string>
+    <string name="title_home">Home</string>
     <string name="title_notifications">Notifications</string>
 </resources>
