@@ -35,7 +35,7 @@ public class Quiz2Activity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(Quiz2Activity.this, QuizActivity.class);
+                Intent intent = new Intent(Quiz2Activity.this, Quiz3Activity.class);
                 startActivity(intent);
             }
         }, 10000);

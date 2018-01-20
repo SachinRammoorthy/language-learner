@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
                 linearLayout.addView(view);
                 img1.setImageBitmap(bitmap);
             }
-            else if (count ==2){
+            else if (count == 2){
                 img2 = new ImageView(this);
                 img2.setLayoutParams(new android.view.ViewGroup.LayoutParams(300,300));
                 img2.setMaxHeight(500);
@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
                 linearLayout.addView(view);
                 img2.setImageBitmap(bitmap);
             }
-            else if (count ==3){
+            else if (count == 3){
                 img3 = new ImageView(this);
                 img3.setLayoutParams(new android.view.ViewGroup.LayoutParams(300,300));
                 img3.setMaxHeight(500);
@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
                 linearLayout.addView(view);
                 img3.setImageBitmap(bitmap);
             }
-            else if (count ==4){
+            else if (count == 4){
                 img4 = new ImageView(this);
                 img4.setLayoutParams(new android.view.ViewGroup.LayoutParams(300,300));
                 img4.setMaxHeight(500);
