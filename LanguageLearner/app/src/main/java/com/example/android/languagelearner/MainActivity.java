@@ -16,14 +16,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
@@ -65,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static int score = 0;
 
-    RelativeLayout relativeLayout;
+    //RelativeLayout relativeLayout;
 
     static ImageView img;
     static ImageView img1;
@@ -79,8 +77,9 @@ public class MainActivity extends AppCompatActivity {
 
     //TextView textTranslate;
 
-    ProgressBar imageUploadProgress;
+    //ProgressBar imageUploadProgress;
     LinearLayout linearLayout;
+    CardView cardView;
 
     int count = 0;
 
@@ -117,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         linearLayout = (LinearLayout) findViewById(R.id.layout);
-        imageUploadProgress = (ProgressBar) findViewById(R.id.imageProgress);
+        //imageUploadProgress = (ProgressBar) findViewById(R.id.imageProgress);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         Menu menu = navigation.getMenu();
@@ -171,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }.execute();
 */
+
     }
 
     private int checkPermission(String permission) {
@@ -186,93 +186,90 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, CAMERA_REQUEST_CODE);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
         if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
             bitmap = (Bitmap) data.getExtras().get("data");
 
-            relativeLayout = new RelativeLayout(this);
+            /*relativeLayout = new RelativeLayout(this);
             LayoutParams params = new LayoutParams(
                     LayoutParams.MATCH_PARENT,
                     LayoutParams.MATCH_PARENT
             );
+            relativeLayout.setLayoutParams(params);*/
 
-            relativeLayout.setLayoutParams(params);
+            cardView = new CardView(this);
+            LayoutParams cardParams = new LayoutParams(
+                    LayoutParams.MATCH_PARENT,
+                    LayoutParams.WRAP_CONTENT
+            );
+
+            cardParams.setMargins(50, 50, 50, 50);
+            cardView.setContentPadding(10, 10, 10, 10);
+
+            View view = new View(this);
+            LayoutParams paramView = new LayoutParams(20,20);
+
+            view.setLayoutParams(paramView);
+            cardView.setLayoutParams(cardParams);
 
             count = count + 1;
 
             if (count == 1){
                 img1 = new ImageView(this);
-                //img1.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-                img1.setLayoutParams(new android.view.ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
-                //img1.setMaxHeight(500);
-                //img1.setMaxWidth(500);
+                img1.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
                 img1.setId(count);
-                img1.getLayoutParams().height= ViewGroup.LayoutParams.MATCH_PARENT;
-                img1.getLayoutParams().width= ViewGroup.LayoutParams.MATCH_PARENT;
+                //img1.setScaleType(ImageView.ScaleType.FIT_XY);
 
-                relativeLayout.addView(img1);
+                cardView.addView(img1);
+                //relativeLayout.addView(img1);
                 img1.setImageBitmap(bitmap);
             }
             else if (count == 2){
                 img2 = new ImageView(this);
-                img2.setLayoutParams(new android.view.ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
-                //img2.setLayoutParams(new android.view.ViewGroup.LayoutParams(300,300));
-                //img2.setMaxHeight(500);
-                //img2.setMaxWidth(500);
-                //img2.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+                img2.setLayoutParams(new android.view.ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
                 img2.setId(count);
-                img2.getLayoutParams().height= ViewGroup.LayoutParams.MATCH_PARENT;
-                img2.getLayoutParams().width= ViewGroup.LayoutParams.MATCH_PARENT;
+                //img2.setScaleType(ImageView.ScaleType.FIT_XY);
 
-                relativeLayout.addView(img2);
+                cardView.addView(img2);
+                //relativeLayout.addView(img2);
                 img2.setImageBitmap(bitmap);
             }
             else if (count == 3){
                 img3 = new ImageView(this);
-                //img3.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-                img3.setLayoutParams(new android.view.ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
-                //img3.setLayoutParams(new android.view.ViewGroup.LayoutParams(300,300));
-                //img3.setMaxHeight(500);
-                //img3.setMaxWidth(500);
+                img3.setLayoutParams(new android.view.ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
                 img3.setId(count);
-                //img3.getLayoutParams().height= ViewGroup.LayoutParams.MATCH_PARENT;
-                img3.getLayoutParams().height= ViewGroup.LayoutParams.MATCH_PARENT;
-                img3.getLayoutParams().width= ViewGroup.LayoutParams.MATCH_PARENT;
+                //img3.setScaleType(ImageView.ScaleType.FIT_XY);
 
-                relativeLayout.addView(img3);
+                cardView.addView(img3);
+                //relativeLayout.addView(img3);
                 img3.setImageBitmap(bitmap);
             }
             else if (count == 4){
                 img4 = new ImageView(this);
-                img4.setLayoutParams(new android.view.ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
-                //img4.setLayoutParams(new android.view.ViewGroup.LayoutParams(300,300));
-                //img4.setMaxHeight(500);
-                //img4.setMaxWidth(500);
+                img4.setLayoutParams(new android.view.ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
                 img4.setId(count);
-                //img4.getLayoutParams().height= ViewGroup.LayoutParams.MATCH_PARENT;
-                img4.getLayoutParams().height= ViewGroup.LayoutParams.MATCH_PARENT;
-                img4.getLayoutParams().width= ViewGroup.LayoutParams.MATCH_PARENT;
+                //img4.setScaleType(ImageView.ScaleType.FIT_XY);
 
-                relativeLayout.addView(img4);
+                cardView.addView(img4);
+                //relativeLayout.addView(img4);
                 img4.setImageBitmap(bitmap);
             }
             else if (count == 5){
                 img5 = new ImageView(this);
-                img5.setLayoutParams(new android.view.ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
-                //img5.setLayoutParams(new android.view.ViewGroup.LayoutParams(300,300));
-                //img5.setMaxHeight(500);
-                //img5.setMaxWidth(500);
+                img5.setLayoutParams(new android.view.ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
                 img5.setId(count);
-                img5.getLayoutParams().height= ViewGroup.LayoutParams.MATCH_PARENT;
-                img5.getLayoutParams().width= ViewGroup.LayoutParams.MATCH_PARENT;
+                //img5.setScaleType(ImageView.ScaleType.FIT_XY);
 
-                relativeLayout.addView(img5);
+                cardView.addView(img5);
+                //relativeLayout.addView(img5);
                 img5.setImageBitmap(bitmap);
             }
 
             callCloudVision(bitmap, feature);
+
         }
     }
 
@@ -289,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("StaticFieldLeak")
     private void callCloudVision(final Bitmap bitmap, final Feature feature) {
-        imageUploadProgress.setVisibility(View.VISIBLE);
+        //imageUploadProgress.setVisibility(View.VISIBLE);
         final List<Feature> featureList = new ArrayList<>();
         featureList.add(feature);
 
@@ -408,7 +405,7 @@ public class MainActivity extends AppCompatActivity {
 
         new AsyncTask<Void, Void, Void>() {
             @Override
-            protected Void doInBackground(Void... params) {
+            protected Void doInBackground(final Void... params) {
                 TranslateOptions options = TranslateOptions.newBuilder()
                         .setApiKey(TRANSLATE_API_KEY)
                         .build();
@@ -424,15 +421,16 @@ public class MainActivity extends AppCompatActivity {
                             TextView textView = new TextView(getApplicationContext());
                             textView.setText(translation.getTranslatedText());
                             textView.setTextColor(Color.BLACK);
+                            textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+                            textView.setTextSize(30);
 
-                            LayoutParams paramsText = new LayoutParams(LayoutParams.WRAP_CONTENT,
-                                    LayoutParams.WRAP_CONTENT);
+                            View emptyView = new View(getApplicationContext());
+                            emptyView.setMinimumHeight(10);
 
-                            paramsText.setMargins(100, 100, 0, 0);
-
-                            relativeLayout.addView(textView);
-                            linearLayout.addView(relativeLayout);
-                            imageUploadProgress.setVisibility(View.INVISIBLE);
+                            cardView.addView(textView);
+                            linearLayout.addView(cardView);
+                            linearLayout.addView(emptyView);
+                            //imageUploadProgress.setVisibility(View.INVISIBLE);
 
                     }
                 });

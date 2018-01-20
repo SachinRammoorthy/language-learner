@@ -2,23 +2,20 @@
 
 <ScrollView
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
 <LinearLayout
-    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:id="@+id/layout"
+    android:paddingBottom="15dp"
+    android:divider="@drawable/divider_space"
+    android:orientation="vertical">
 
-    <ProgressBar
-        android:id="@+id/imageProgress"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+
 
 </LinearLayout>
 
