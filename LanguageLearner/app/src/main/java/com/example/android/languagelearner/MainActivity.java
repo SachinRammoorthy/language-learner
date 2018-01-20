@@ -57,9 +57,17 @@ public class MainActivity extends AppCompatActivity {
 
     CardView cardView;
 
+    static ImageView img;
+    static ImageView img1;
+    static ImageView img2;
+    static ImageView img3;
+    static ImageView img4;
+    static ImageView img5;
 
     ProgressBar imageUploadProgress;
     LinearLayout linearLayout;
+
+    int count = 0;
 
     public static ArrayList<String> arrayList;
 
@@ -68,7 +76,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        arrayList = new ArrayList<String>();
+
+        arrayList = new ArrayList<>();
 
         feature = new Feature();
         feature.setType("LABEL_DETECTION");
@@ -140,15 +149,64 @@ public class MainActivity extends AppCompatActivity {
             view.setLayoutParams(paramView);
             cardView.setLayoutParams(params);
 
+            count = count + 1;
 
-            ImageView img = new ImageView(this);
-            img.setLayoutParams(new android.view.ViewGroup.LayoutParams(300,300));
-            img.setMaxHeight(500);
-            img.setMaxWidth(500);
+            if (count == 1){
+                img1 = new ImageView(this);
+                img1.setLayoutParams(new android.view.ViewGroup.LayoutParams(300,300));
+                img1.setMaxHeight(500);
+                img1.setMaxWidth(500);
+                img1.setId(count);
 
-            cardView.addView(img);
-            linearLayout.addView(view);
-            img.setImageBitmap(bitmap);
+                cardView.addView(img1);
+                linearLayout.addView(view);
+                img1.setImageBitmap(bitmap);
+            }
+            else if (count ==2){
+                img2 = new ImageView(this);
+                img2.setLayoutParams(new android.view.ViewGroup.LayoutParams(300,300));
+                img2.setMaxHeight(500);
+                img2.setMaxWidth(500);
+                img2.setId(count);
+
+                cardView.addView(img2);
+                linearLayout.addView(view);
+                img2.setImageBitmap(bitmap);
+            }
+            else if (count ==3){
+                img3 = new ImageView(this);
+                img3.setLayoutParams(new android.view.ViewGroup.LayoutParams(300,300));
+                img3.setMaxHeight(500);
+                img3.setMaxWidth(500);
+                img3.setId(count);
+
+                cardView.addView(img3);
+                linearLayout.addView(view);
+                img3.setImageBitmap(bitmap);
+            }
+            else if (count ==4){
+                img4 = new ImageView(this);
+                img4.setLayoutParams(new android.view.ViewGroup.LayoutParams(300,300));
+                img4.setMaxHeight(500);
+                img4.setMaxWidth(500);
+                img4.setId(count);
+
+                cardView.addView(img4);
+                linearLayout.addView(view);
+                img4.setImageBitmap(bitmap);
+            }
+            else if (count == 5){
+                img5 = new ImageView(this);
+                img5.setLayoutParams(new android.view.ViewGroup.LayoutParams(300,300));
+                img5.setMaxHeight(500);
+                img5.setMaxWidth(500);
+                img5.setId(count);
+
+                cardView.addView(img5);
+                linearLayout.addView(view);
+                img5.setImageBitmap(bitmap);
+            }
+
             callCloudVision(bitmap, feature);
         }
     }
@@ -211,7 +269,6 @@ public class MainActivity extends AppCompatActivity {
             protected void onPostExecute(String result) {
 
                 arrayList.add(result);
-
                 TextView textView = new TextView(getApplicationContext());
                 textView.setText(result);
                 textView.setTextColor(Color.BLACK);

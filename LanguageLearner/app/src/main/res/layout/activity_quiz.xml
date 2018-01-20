@@ -8,6 +8,13 @@
     android:orientation="vertical"
     tools:context="com.example.android.languagelearner.QuizActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:id="@+id/img_layout">
+
+    </LinearLayout>
     <TextView
         android:id="@+id/quiz_question"
         android:layout_width="wrap_content"

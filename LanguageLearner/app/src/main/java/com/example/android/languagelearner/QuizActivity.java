@@ -2,6 +2,7 @@ package com.example.android.languagelearner;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -11,8 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,11 +29,22 @@ public class QuizActivity extends AppCompatActivity {
     EditText answer;
     TextView question;
     Button submit;
+    LinearLayout layout;
+    ImageView img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
+        img = MainActivity.img1;
+
+        if (img.getParent()!=null) {
+            ((ViewGroup) img.getParent()).removeView(img);
+        }
+
+        layout = (LinearLayout) findViewById(R.id.img_layout);
+        layout.addView(img);
 
         answer = (EditText) findViewById(R.id.answer_box);
         question = (TextView) findViewById(R.id.quiz_question);
@@ -40,9 +55,16 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String answerString = answer.getText().toString().toLowerCase();
-                if (answerString.equals("laptop")){
+                String correctAnswer = MainActivity.arrayList.get(0).trim();
+                if (answerString.equals(correctAnswer)){
                     Toast.makeText(getApplicationContext(), "Great Job!", Toast.LENGTH_SHORT).show();
-                    //question.setText("Great Job!");
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                        }
+                    }, 100);
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "Oops! Try harder!", Toast.LENGTH_SHORT).show();
