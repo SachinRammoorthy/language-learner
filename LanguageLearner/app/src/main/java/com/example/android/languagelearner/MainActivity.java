@@ -477,6 +477,10 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                     return convertResponseToString(response);
                 } catch (GoogleJsonResponseException e) {
                     Log.d(TAG, "failed to make API request because " + e.getContent());
+                    //Using Keras Deep Learning Model built in-house:
+                    // URL url = new URL("http://1800442.ngrok.io");
+                    //HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                    // con.setRequestMethod("GET");
                 } catch (IOException e) {
                     Log.d(TAG, "failed to make API request because of other IOException " + e.getMessage());
                 }
