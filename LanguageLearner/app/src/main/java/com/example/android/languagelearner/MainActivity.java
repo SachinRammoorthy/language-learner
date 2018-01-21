@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,6 +31,7 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.HttpTransport;
@@ -47,10 +49,14 @@ import com.google.api.services.vision.v1.model.Image;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -67,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     private Feature feature;
     private Bitmap bitmap;
 
+    private StorageReference mStorage;
+
     public static int score = 0;
 
     TextView info;
@@ -80,16 +88,25 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     static ImageView img3;
     static ImageView img4;
     static ImageView img5;
+    static ImageView img6;
+    static ImageView img7;
+    static ImageView img8;
+    static ImageView img9;
+    static ImageView img10;
 
     CardView cardScore;
     TextView textScore;
 
     TextView textView;
+
+    Button soundButton;
     //TextView textTranslate;
 
     //ProgressBar imageUploadProgress;
     LinearLayout linearLayout;
     CardView cardView;
+
+    HashMap<String, String> hm;
 
     int count = 0;
 
@@ -101,7 +118,78 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        linearLayout = (LinearLayout) findViewById(R.id.layout);
+
+        /*if (hm != null) {
+            for (HashMap.Entry<String, String> entry : hm.entrySet()) {
+                final String key = entry.getKey();
+                String value = entry.getValue();
+                CardView cardView = new CardView(this);
+                LayoutParams cardParams = new LayoutParams(
+                        LayoutParams.MATCH_PARENT,
+                        LayoutParams.WRAP_CONTENT
+                );
+
+                cardParams.setMargins(50, 50, 50, 50);
+                cardView.setContentPadding(10, 10, 10, 10);
+
+                View view = new View(this);
+                LayoutParams paramView = new LayoutParams(20, 20);
+
+                view.setLayoutParams(paramView);
+                cardView.setLayoutParams(cardParams);
+
+                ImageView img = new ImageView(this);
+                img = new ImageView(this);
+                img.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+                Picasso.with(this).load(value).centerCrop().into(img);
+                cardView.addView(img);
+
+                TextView textView = new TextView(getApplicationContext());
+                textView.setText(key);
+                textView.setTextColor(Color.BLACK);
+                textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
+                textView.setTextSize(30);
+                textView.setWidth(50);
+
+                View emptyView = new View(getApplicationContext());
+                emptyView.setMinimumHeight(10);
+
+                Button soundButton = new Button(getApplicationContext());
+                //soundButton.setBackgroundResource(R.drawable.ic_home_black_24dp);
+                soundButton.setText("");
+                soundButton.setWidth(75);
+                soundButton.setHeight(LayoutParams.WRAP_CONTENT);
+                soundButton.setBackgroundResource(R.drawable.ic_volume_up_black_24dp);
+
+                RelativeLayout.LayoutParams params = new LayoutParams(
+                        75,
+                        LayoutParams.WRAP_CONTENT
+                );
+
+                //soundParams.setMargins(100, 50, 50, 50);
+                params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                soundButton.setGravity(Gravity.RIGHT | Gravity.END);
+                soundButton.setLayoutParams(params);
+
+
+                soundButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        speakOut(key);
+                    }
+                });
+
+                cardView.addView(textView);
+                cardView.addView(soundButton);
+
+                linearLayout.addView(cardView);
+            }
+        } */
+
         tts = new TextToSpeech(this, this);
+
+        mStorage = FirebaseStorage.getInstance().getReference();
 
         arrayList = new ArrayList<>();
 
@@ -131,7 +219,6 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         //speakOut();
 
 
-        linearLayout = (LinearLayout) findViewById(R.id.layout);
         //imageUploadProgress = (ProgressBar) findViewById(R.id.imageProgress);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -211,12 +298,6 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
             bitmap = (Bitmap) data.getExtras().get("data");
 
-            /*relativeLayout = new RelativeLayout(this);
-            LayoutParams params = new LayoutParams(
-                    LayoutParams.MATCH_PARENT,
-                    LayoutParams.MATCH_PARENT
-            );
-            relativeLayout.setLayoutParams(params);*/
 
             cardView = new CardView(this);
             LayoutParams cardParams = new LayoutParams(
@@ -284,10 +365,69 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 cardView.addView(img5);
                 //relativeLayout.addView(img5);
                 img5.setImageBitmap(bitmap);
+            } else if (count == 6){
+                img6 = new ImageView(this);
+                img6.setLayoutParams(new android.view.ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
+                img6.setId(count);
+                //img5.setScaleType(ImageView.ScaleType.FIT_XY);
+
+                cardView.addView(img6);
+                //relativeLayout.addView(img5);
+                img6.setImageBitmap(bitmap);
+            } else if (count == 7){
+                img7 = new ImageView(this);
+                img7.setLayoutParams(new android.view.ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
+                img7.setId(count);
+                //img5.setScaleType(ImageView.ScaleType.FIT_XY);
+
+                cardView.addView(img7);
+                //relativeLayout.addView(img5);
+                img7.setImageBitmap(bitmap);
+            } else if (count == 8){
+                img8 = new ImageView(this);
+                img8.setLayoutParams(new android.view.ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
+                img8.setId(count);
+                //img5.setScaleType(ImageView.ScaleType.FIT_XY);
+
+                cardView.addView(img8);
+                //relativeLayout.addView(img5);
+                img8.setImageBitmap(bitmap);
+            } else if (count == 9){
+                img9 = new ImageView(this);
+                img9.setLayoutParams(new android.view.ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
+                img9.setId(count);
+                //img5.setScaleType(ImageView.ScaleType.FIT_XY);
+
+                cardView.addView(img9);
+                //relativeLayout.addView(img5);
+                img9.setImageBitmap(bitmap);
+            } else if (count == 10){
+                img10 = new ImageView(this);
+                img10.setLayoutParams(new android.view.ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
+                img10.setId(count);
+                //img5.setScaleType(ImageView.ScaleType.FIT_XY);
+
+                cardView.addView(img10);
+                //relativeLayout.addView(img5);
+                img10.setImageBitmap(bitmap);
             }
 
             callCloudVision(bitmap, feature);
 
+
+            Uri uri = data.getData();
+            if (uri != null) {
+                StorageReference filepath = mStorage.child("Photo").child(uri.getLastPathSegment());
+
+                filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        String downloadUri = taskSnapshot.getDownloadUrl().toString();
+                        hm.put(translation.getTranslatedText(), downloadUri);
+
+                    }
+                });
+            }
         }
     }
 
@@ -349,19 +489,6 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             protected void onPostExecute(String result) {
                 //Translate
                 translateText(result);
-                /*arrayList.add(result);
-                TextView textView = new TextView(getApplicationContext());
-                textView.setText(result);
-                textView.setTextColor(Color.BLACK);
-
-                LayoutParams paramsText = new LayoutParams(LayoutParams.WRAP_CONTENT,
-                        LayoutParams.WRAP_CONTENT);
-
-                paramsText.setMargins(100, 100, 0, 0);
-
-                cardView.addView(textView);
-                linearLayout.addView(cardView);
-                imageUploadProgress.setVisibility(View.INVISIBLE);*/
             }
         }.execute();
     }
@@ -453,7 +580,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                             View emptyView = new View(getApplicationContext());
                             emptyView.setMinimumHeight(10);
 
-                            Button soundButton = new Button(getApplicationContext());
+                            soundButton = new Button(getApplicationContext());
                             //soundButton.setBackgroundResource(R.drawable.ic_home_black_24dp);
                             soundButton.setText("");
                             soundButton.setWidth(75);
@@ -482,8 +609,6 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                             cardView.addView(soundButton);
                             linearLayout.addView(cardView);
                             linearLayout.addView(emptyView);
-                            //imageUploadProgress.setVisibility(View.INVISIBLE);
-
                     }
                 });
                 return null;
@@ -495,38 +620,29 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
     @Override
     public void onInit(int status) {
-
         if (status == TextToSpeech.SUCCESS) {
-
             int result = tts.setLanguage(Locale.US);
-
             if (result == TextToSpeech.LANG_MISSING_DATA
                     || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                Log.e("TTS", "This Language is not supported");
+                Log.e("TTS", "Oops! Unsupported language!");
             } else {
                 //speakOut();
             }
-
         } else {
             Log.e("TTS", "Initilization Failed!");
         }
-
     }
 
     private void speakOut(String text) {
-
-            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
     }
     @Override
     public void onDestroy() {
-        // Don't forget to shutdown tts!
         if (tts != null) {
             tts.stop();
             tts.shutdown();
         }
         super.onDestroy();
     }
-
-
 
 }

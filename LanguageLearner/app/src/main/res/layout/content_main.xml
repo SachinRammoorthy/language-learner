@@ -19,7 +19,7 @@
             android:id="@+id/text_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hi there! If you are just getting started, here is some info to get you started. Click on the camera icon below to take photos. You can take as many as you want, although we recommend 5 at a time for maximum and the most efficient learning. After that, take pictures of objects around you. We will recognize the objects and translate it into your chosen language. Learn the words, and then take the quiz! Have fun learning!" />
+            android:text="Hi there! If you are just getting started, here is some info to get you started. Click on the camera icon below to take photos. You can take as many as you want, although we recommend 5 at a time for maximum and the most efficient learning. After that, take pictures of objects around you. We will recognize the objects (note this may take a few moments depending on your network) and translate it into your chosen language. Learn the words, and then take the quiz! Have fun learning!" />
 
 
     </LinearLayout>
