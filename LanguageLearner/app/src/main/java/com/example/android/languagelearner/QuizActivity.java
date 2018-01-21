@@ -40,7 +40,8 @@ public class QuizActivity extends AppCompatActivity {
 
 
         img = MainActivity.img1;
-        img.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        img.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 750));
+        img.setScaleType(ImageView.ScaleType.FIT_XY);
 
         if (img.getParent()!=null) {
             ((ViewGroup) img.getParent()).removeView(img);

@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,7 +30,6 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.HttpTransport;
@@ -51,7 +49,6 @@ import com.google.cloud.translate.TranslateOptions;
 import com.google.cloud.translate.Translation;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -415,7 +412,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
             callCloudVision(bitmap, feature);
 
 
-            Uri uri = data.getData();
+            /*Uri uri = data.getData();
             if (uri != null) {
                 StorageReference filepath = mStorage.child("Photo").child(uri.getLastPathSegment());
 
@@ -427,7 +424,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
                     }
                 });
-            }
+            }*/
         }
     }
 

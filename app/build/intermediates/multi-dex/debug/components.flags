@@ -1,0 +1,95 @@
+-injars /Users/sachin_rammoorthy/.gradle/caches/transforms-1/files-1.1/multidex-1.0.2.aar/dc09414ab8923dadadd9e480502f1d6a/jars/classes.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/aec096ad0d4de2ea0e91a82d0e8e4f4d/jars/classes.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/620ff97c6eb36dfd0d802f215ac8a25e/jars/classes.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.0.2.aar/44a785f35df526747d142f37414bb80a/jars/classes.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-26.1.0.aar/2efc3a9a4c70b948998f29ff60a757c3/jars/classes.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-26.1.0.aar/01f969f0de8980b035bc6d82bcb4f22d/jars/classes.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/transforms-1/files-1.1/cardview-v7-26.1.0.aar/de2e8e4b22909c4a3ecb84b466461e13/jars/classes.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/com.google.cloud/google-cloud-translate/0.5.0/5cb606507a90f2214b8540f0a727a03b7dce480c/google-cloud-translate-0.5.0.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/com.google.apis/google-api-services-translate/v2-rev51-1.23.0/9656227cdb5aca33cc024dffb5b4da3f6fd13a20/google-api-services-translate-v2-rev51-1.23.0.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/transforms-1/files-1.1/transition-26.1.0.aar/d0f49a98e2ae747ac76db265bd421963/jars/classes.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/transforms-1/files-1.1/support-v4-26.1.0.aar/f211c48aa3f8ecd2616622282a4f64e7/jars/classes.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/com.google.api-client/google-api-client-android/1.20.0/5673179575c32b69a474334255c3044adf18d40/google-api-client-android-1.20.0.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/com.google.http-client/google-http-client-gson/1.20.0/9204765f39000f6109c927ac66c7963bf9c7df19/google-http-client-gson-1.20.0.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/com.google.apis/google-api-services-vision/v1-rev2-1.21.0/4db84d916e8ec80d9aa11c5f89a6cb6621ac1c85/google-api-services-vision-v1-rev2-1.21.0.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-26.1.0.aar/76e13b62354eaf2afc0ee4f1f39f8756/jars/classes.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/4ce877128990e1985dd490b7dc5f566f/jars/classes.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/transforms-1/files-1.1/support-fragment-26.1.0.aar/fdcf2af08e80fb615f9685b9444ad1d6/jars/classes.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/transforms-1/files-1.1/support-core-utils-26.1.0.aar/69c027631eeb6a2ac4ed449c3764dfc4/jars/classes.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/transforms-1/files-1.1/support-core-ui-26.1.0.aar/ad53559c628b947d380ecbc96af1a5d2/jars/classes.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/46b1a15d46ccd59bfc4251612771983e/jars/classes.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/com.android.support/support-annotations/26.1.0/814258103cf26a15fcc26ecce35f5b7d24b73f8/support-annotations-26.1.0.jar(**.class)
+-injars /Users/sachin_rammoorthy/Library/Android/sdk/extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.2/constraint-layout-solver-1.0.2.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/com.google.api-client/google-api-client/1.23.0/522ea860eb48dee71dfe2c61a1fd09663539f556/google-api-client-1.23.0.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/com.google.cloud/google-cloud-core/0.5.0/5c17974533eb65b96c1e74ac9540e4dcfc1fb513/google-cloud-core-0.5.0.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/com.google.http-client/google-http-client-android/1.20.0/313dc99a7963523871495897ca11aa8472b3c6fd/google-http-client-android-1.20.0.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/com.google.http-client/google-http-client-jackson/1.21.0/5a8b90f8e128d28f88a301a4c5ff7c2336dcc725/google-http-client-jackson-1.21.0.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/com.google.api/gax/0.0.21/a2e10518154502986dbb8b480482c1d1f2cf09ba/gax-0.0.21.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/com.google.auth/google-auth-library-oauth2-http/0.4.0/da066377ea85dd54f667efae1f2f04f12124744f/google-auth-library-oauth2-http-0.4.0.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/com.google.oauth-client/google-oauth-client/1.23.0/e57ea1e2220bda5a2bd24ff17860212861f3c5cf/google-oauth-client-1.23.0.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/com.google.http-client/google-http-client-jackson2/1.23.0/fd6761f4046a8cb0455e6fa5f58e12b061e9826e/google-http-client-jackson2-1.23.0.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/com.google.http-client/google-http-client/1.23.0/8e86c84ff3c98eca6423e97780325b299133d858/google-http-client-1.23.0.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.1/2e66da15851f9f5b5079228f856c2f090ba98c38/gson-2.1.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/8aabe2cdde26657dcd75ce779f5c02d8/jars/classes.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/com.google.auth/google-auth-library-credentials/0.4.0/171da91494a1391aef13b88bd7302b29edb8d3b3/google-auth-library-credentials-0.4.0.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/com.google.inject/guice/4.0/f990a43d3725781b6db7cd0acf0a8b62dfd1649/guice-4.0.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/19.0/6ce200f6b23222af3d8abb6b6459e6c44f4bb0e9/guava-19.0.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.9.2/36d6e77a419cb455e6fd5909f6f96b168e21e9d0/joda-time-2.9.2.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/org.json/json/20151123/1675d5c1142000dedd6627a73af26a8b885ef0e1/json-20151123.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/com.google.api.grpc/grpc-google-common-protos/0.1.0/717ee47bed6a2d2de7263fd26ed764ac834dbd1b/grpc-google-common-protos-0.1.0.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/com.google.api.grpc/grpc-google-iam-v1/0.1.0/e31ee2a12fd7798bd4bec7bf584057a33b871b2e/grpc-google-iam-v1-0.1.0.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/android.arch.lifecycle/common/1.0.0/e414a4cb28434e25c4f6aa71426eb20cf4874ae9/common-1.0.0.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/android.arch.core/common/1.0.0/a2d487452376193fc8c103dd2b9bd5f2b1b44563/common-1.0.0.jar(**.class)
+-injars '/Applications/Android Studio.app/Contents/gradle/m2repository/com/google/code/findbugs/jsr305/1.3.9/jsr305-1.3.9.jar'(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/org.codehaus.jackson/jackson-core-asl/1.9.11/e32303ef8bd18a5c9272780d49b81c95e05ddf43/jackson-core-asl-1.9.11.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/com.google.auto.value/auto-value/1.2/6873fed014fe1de1051aae2af68ba266d2934471/auto-value-1.2.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/aopalliance/aopalliance/1.0/235ba8b489512805ac13a8f9ea77a1ca5ebe3e8/aopalliance-1.0.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/com.google.guava/guava-jdk5/17.0/463f8378feba44df7ba7cd9272d01837dad62b36/guava-jdk5-17.0.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpclient/4.0.1/1d7d28fa738bdbfe4fbd895d9486308999bdf440/httpclient-4.0.1.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/org.apache.httpcomponents/httpcore/4.0.1/e813b8722c387b22e1adccf7914729db09bcb4a9/httpcore-4.0.1.jar(**.class)
+-injars '/Applications/Android Studio.app/Contents/gradle/m2repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar'(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.3/fd32786786e2adb664d5ecc965da47629dca14ba/commons-codec-1.3.jar(**.class)
+-injars /Users/sachin_rammoorthy/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.1.3/f6c3aed1cdfa21b5c1737c915186ea93a95a58bd/jackson-core-2.1.3.jar(**.class)
+-injars /Users/sachin_rammoorthy/Downloads/oakcodefest/LanguageLearner/app/build/intermediates/classes/debug(**.class)
+-outjars /Users/sachin_rammoorthy/Downloads/oakcodefest/LanguageLearner/app/build/intermediates/multi-dex/debug/componentClasses.jar
+
+-libraryjars /Users/sachin_rammoorthy/Library/Android/sdk/build-tools/26.0.2/lib/shrinkedAndroid.jar
+
+-forceprocessing
+-dontoptimize
+-dontobfuscate
+-dontusemixedcaseclassnames
+-dontpreverify
+-dontnote **
+-dontwarn **
+-printconfiguration /Users/sachin_rammoorthy/Downloads/oakcodefest/LanguageLearner/app/build/intermediates/multi-dex/debug/components.flags
+
+
+# Referenced at /Users/sachin_rammoorthy/Downloads/oakcodefest/LanguageLearner/app/build/intermediates/manifests/full/debug/AndroidManifest.xml:14
+-keep class android.support.multidex.MultiDexApplication {
+    <init>(...);
+}
+
+-keep public class * extends android.app.Instrumentation {
+    <init>();
+}
+
+-keep public class * extends android.app.Application {
+    <init>();
+    void attachBaseContext(android.content.Context);
+}
+
+-keep public class * extends android.app.backup.BackupAgent {
+    <init>();
+}
+
+-keep public class * extends java.lang.annotation.Annotation {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.android.tools.ir.** {
+    <fields>;
+    <methods>;
+}
