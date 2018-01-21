@@ -559,9 +559,10 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                         .setApiKey(TRANSLATE_API_KEY)
                         .build();
                 Translate translate = options.getService();
+
                 translation =
                         translate.translate(text,
-                                Translate.TranslateOption.targetLanguage("es"));
+                                Translate.TranslateOption.targetLanguage(LoginActivity.language));
                 textViewHandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -584,7 +585,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                             soundButton.setHeight(LayoutParams.WRAP_CONTENT);
                             soundButton.setBackgroundResource(R.drawable.ic_volume_up_black_24dp);
 
-                        RelativeLayout.LayoutParams params = new LayoutParams(
+                        LayoutParams params = new LayoutParams(
                                 75,
                                 LayoutParams.WRAP_CONTENT
                         );
